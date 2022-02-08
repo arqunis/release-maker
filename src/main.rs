@@ -6,7 +6,7 @@ mod release;
 use git::{Commit, Repository};
 use release::{generate_msg, Change, Release};
 
-use clap::Clap;
+use clap::Parser;
 use serde_json::to_string_pretty;
 
 use std::fs::File;
@@ -19,7 +19,7 @@ static EXAMPLE: &str = include_str!("../texts/example.json");
 static GOTCHAS: &str = include_str!("../texts/gotchas.txt");
 
 /// A utility tool to quickly create changelogs for Github releases.
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(name = "release-maker", version = "0.2.0")]
 enum App {
     Retrieve(Retrieve),
@@ -28,7 +28,7 @@ enum App {
 
 /// Retrieve a list of Git commits from a repository's branch into json that
 /// can be plugged into the `generate` subcommand.
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(version = "0.2.0")]
 struct Retrieve {
     /// Path to directory of a Git repository.
@@ -50,7 +50,7 @@ struct Retrieve {
 }
 
 /// Generate markdown-formatted output from json input.
-#[derive(Clap)]
+#[derive(Parser)]
 #[clap(version = "0.2.0")]
 struct Generate {
     /// Path to input file.
